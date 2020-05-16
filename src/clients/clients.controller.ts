@@ -44,7 +44,7 @@ class ClientsController {
       if (newAccount) {
         console.log('new account');
 
-        const token = this.jwtService.sign({ email: newClient.email });
+        const token = this.jwtService.sign({ id: newClient.id });
         return res.send({
           status: 200,
           token: token,

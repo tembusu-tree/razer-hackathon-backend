@@ -24,8 +24,9 @@ export class LoansController {
     res.json(data);
   };
 
-  createLoan = async (req: Request, res: Response) => {
-    const { clientId, amount, interestRate } = req.body;
+  createLoan = async (req: any, res: Response) => {
+    let clientId = req.user.id;
+    const { amount, interestRate } = req.body;
     const data = await this.loanService.create(clientId, amount, interestRate);
 
     res.json(data);

@@ -11,7 +11,7 @@ export const checkToken = (req, res, next) => {
     const jwtService = new JwtService();
     const result = jwtService.validate(token);
     if (result) {
-      req.decoded = result.data;
+      req.user = result;
       next();
     } else {
       return res.status(401).json({
