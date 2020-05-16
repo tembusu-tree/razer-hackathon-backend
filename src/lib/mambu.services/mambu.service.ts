@@ -6,7 +6,7 @@ export class MambuService {
   public clients: ClientService;
   public depositAccounts: DepositAccountService;
   public loanAccounts: LoanAccountService;
-  
+
   constructor() {
     this.clients = new ClientService();
     this.depositAccounts = new DepositAccountService();

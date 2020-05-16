@@ -16,9 +16,7 @@ class DepositAccountService extends MambuApiService {
       productTypeKey: this.savingsProductTypeKey,
     };
 
-    await this.apiPost('savings', { savingsAccount });
-
-    return true;
+    return await this.apiPost('savings', { savingsAccount });
   }
 
   async deposit(

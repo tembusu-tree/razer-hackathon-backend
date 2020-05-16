@@ -5,11 +5,7 @@ import { MambuApiService } from './BaseService';
 const fieldNames = { acra: 'acraNumber', email: 'email' };
 
 export class ClientService extends MambuApiService {
-  async get(id: string): Promise<Client> {
-    const res = await this.apiGet('clients/' + id + '?fullDetails=true');
-
-    const data: MambuClient = res.data.client;
-
+  private mapResponse(data: MambuClient) {
     return {
       firstName: data.firstName,
       lastName: data.lastName,
@@ -23,7 +19,15 @@ export class ClientService extends MambuApiService {
     };
   }
 
-  async create(client: Client): Promise<boolean> {
+  async get(id: string): Promise<Client> {
+    const res = await this.apiGet('clients/' + id + '?fullDetails=true');
+
+    const data: MambuClient = res.client;
+
+    return this.mapResponse(data);
+  }
+
+  async create(client: Client): Promise<Client> {
     const body = {
       firstName: client.firstName,
       lastName: client.lastName,
@@ -40,7 +44,10 @@ export class ClientService extends MambuApiService {
         },
       ],
     };
-    await this.apiPost('clients', body);
-    return true;
+
+    const res = await this.apiPost('clients?fullDetails=true', body);
+    const data: MambuClient = res.client;
+
+    return this.mapResponse(data);
   }
 }
