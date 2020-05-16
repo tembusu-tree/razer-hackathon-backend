@@ -1,4 +1,9 @@
+## IDE related
 .idea
+
+#build dependencies
 node_modules
 dist
+
+#generated files
 *.log
