@@ -36,12 +36,16 @@ export class MambuApiService {
   }
 
   async apiPost(url: string, body: any) {
-    const res = await axios.post(
-      new URL(url, this.apiUrl).toString(),
-      body,
-      this.config,
-    );
-    console.log('POST to Mambu', url, body, res);
-    return res.data;
+    try {
+      const res = await axios.post(
+        new URL(url, this.apiUrl).toString(),
+        body,
+        this.config,
+      );
+      console.log('POST to Mambu', url, body, res);
+      return res.data;
+    } catch (e) {
+      console.log(e);
+    }
   }
 }

@@ -19,7 +19,6 @@ export class JwtService {
   validate(token: string): any {
     jwt.verify(token, this.secret, { ignoreExpiration: false, ...this.config });
     const data = jwt.decode(token);
-
     return data;
   }
 }

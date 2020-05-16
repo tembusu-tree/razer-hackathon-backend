@@ -1,6 +1,7 @@
 import express from 'express';
 
 import * as bodyParser from 'body-parser';
+import { checkToken } from './middleware/authentication';
 
 import 'dotenv/config';
 
@@ -18,6 +19,7 @@ class App {
 
   private initializeMiddlewares() {
     this.app.use(bodyParser.json());
+    this.app.get('/', checkToken);
   }
 
   private initializeControllers(controllers) {
