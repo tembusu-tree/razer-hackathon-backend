@@ -13,7 +13,7 @@ class DepositAccountService extends MambuApiService {
       accountState: 'APPROVED',
       accountHolderType: 'CLIENT',
       accountHolderKey: userId,
-      productTypeKey: this.productTypeKey,
+      productTypeKey: this.savingsProductTypeKey,
     };
 
     await this.apiPost('savings', { savingsAccount });

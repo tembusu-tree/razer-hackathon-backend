@@ -5,7 +5,8 @@ export class MambuApiService {
   protected username: string;
   protected password: string;
   protected branchKey: string;
-  protected productTypeKey: string;
+  protected savingsProductTypeKey: string;
+  protected loanProductTypeKey: string;
   protected config: any;
 
   constructor() {
@@ -13,7 +14,8 @@ export class MambuApiService {
     this.username = process.env.MAMBU_USERNAME;
     this.password = process.env.MAMBU_PASSWORD;
     this.branchKey = process.env.MAMBU_BRANCH_KEY;
-    this.productTypeKey = process.env.MAMBU_PRODUCT_TYPE_KEY;
+    this.savingsProductTypeKey = process.env.MAMBU_SAVINGS_PRODUCT_TYPE_KEY;
+    this.loanProductTypeKey = process.env.MAMBU_LOAN_PRODUCT_TYPE_KEY;
 
     this.config = {
       headers: {
