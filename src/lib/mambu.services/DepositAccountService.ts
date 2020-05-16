@@ -14,6 +14,15 @@ class DepositAccountService extends MambuApiService {
       accountHolderType: 'CLIENT',
       accountHolderKey: userId,
       productTypeKey: this.savingsProductTypeKey,
+      "currencyCode": "SGD",
+      "allowOverdraft": true,
+      "overdraftLimit": "100",
+      "overdraftInterestSettings": {
+        "interestRate": 5
+      },
+      "interestSettings": {
+        "interestRate": "1.25"
+      }
     };
 
     return await this.apiPost('savings', { savingsAccount });

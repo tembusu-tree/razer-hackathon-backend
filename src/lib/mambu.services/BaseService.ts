@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 
 export class MambuApiService {
   protected apiUrl: string;
@@ -7,7 +7,7 @@ export class MambuApiService {
   protected branchKey: string;
   protected savingsProductTypeKey: string;
   protected loanProductTypeKey: string;
-  protected config: any;
+  protected config: AxiosRequestConfig;
 
   constructor() {
     this.apiUrl = process.env.MAMBU_BASE_URL;
@@ -30,22 +30,24 @@ export class MambuApiService {
   }
 
   async apiGet(url: string) {
-    const res = await axios.get(new URL(url, this.apiUrl).toString());
+    const res = await axios.get(this.apiUrl + '/' + url, this.config);
     console.log('GET to Mambu', url, res);
     return res.data;
   }
 
   async apiPost(url: string, body: any) {
     try {
+      url = this.apiUrl + '/' + url;
+      console.log('POST to Mambu', url, body);
       const res = await axios.post(
-        new URL(url, this.apiUrl).toString(),
+        url,
         body,
         this.config,
       );
-      console.log('POST to Mambu', url, body, res);
       return res.data;
     } catch (e) {
-      console.log(e);
+      console.log(e.response.data);
+      throw e;
     }
   }
 }

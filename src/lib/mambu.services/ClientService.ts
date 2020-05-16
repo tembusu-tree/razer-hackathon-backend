@@ -1,6 +1,7 @@
 import Client from '../../clients/clients.interface';
 import { MambuClient } from './mambu.interface';
 import { MambuApiService } from './BaseService';
+import { v4 as uuidv4 } from 'uuid';
 
 export class ClientService extends MambuApiService {
   private mapResponse(data: MambuClient): Client {
@@ -44,13 +45,13 @@ export class ClientService extends MambuApiService {
           customFieldID: 'countryOfBirth',
         },
         {
-          value: '{{$guid}}',
+          value: uuidv4(),
           customFieldID: 'razerID',
         },
       ],
     };
 
-    const res = await this.apiPost('clients?fullDetails=true', body);
+    const res = await this.apiPost('clients', body);
     console.log('data: ', res);
     const data: MambuClient = res.client;
 
