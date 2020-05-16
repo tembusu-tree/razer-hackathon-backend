@@ -4,6 +4,7 @@ import { Request, Response } from 'express';
 import { ClientService } from '../lib/mambu.services/ClientService';
 import DepositAccountService from '../lib/mambu.services/DepositAccountService';
 import { JwtService } from '../lib/jwt/jwt.service';
+import { checkToken } from '../middleware/authentication';
 
 class ClientsController {
   public path = '/clients';
@@ -18,12 +19,12 @@ class ClientsController {
   }
 
   public intializeRoutes() {
-    this.router.get(this.path, this.getAllClients);
+    this.router.get(this.path, checkToken, this.getUser);
     this.router.post(this.path, this.createClient);
   }
 
-  getAllClients = (request: Request, response: Response) => {
-    response.send(this.clients);
+  getUser = (request: any, response: Response) => {
+    response.json(request.user);
   };
 
   createClient = async (req: Request, res: Response) => {
@@ -44,7 +45,7 @@ class ClientsController {
       if (newAccount) {
         console.log('new account');
 
-        const token = this.jwtService.sign({ id: newClient.id });
+        const token = this.jwtService.sign(newClient);
         return res.send({
           status: 200,
           token: token,

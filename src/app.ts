@@ -5,6 +5,7 @@ import { checkToken } from './middleware/authentication';
 import cors from 'cors';
 import 'dotenv/config';
 import ClientsController from './clients/clients.controller';
+import path from 'path';
 
 class App {
   public app: express.Application;
@@ -12,14 +13,19 @@ class App {
 
   constructor(controllers) {
     this.app = express();
-    this.app.use(cors());
-    this.port = process.env.BACKEND_PORT;
+
+    if(process.env.NODE_ENV === 'development') {
+      this.app.use(cors());
+    }
+
+    this.port = process.env.PORT || "3000";
 
     this.initializeMiddlewares();
     this.initializeControllers(controllers);
   }
 
   private initializeMiddlewares() {
+    this.app.use(express.static(path.resolve(__dirname, '../dist')));
     this.app.use(bodyParser.json());
   }
 

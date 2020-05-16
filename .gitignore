@@ -1,8 +1,10 @@
 ## IDE related
 .idea
+.env
 
 #build dependencies
 node_modules
+build
 dist
 
 #generated files
