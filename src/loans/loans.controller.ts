@@ -1,12 +1,13 @@
 import * as express from 'express';
 import { Request, Response } from 'express';
-import { MambuService } from '../lib/mambu.services/mambu.service';
+import { LoanAccountService } from '../lib/mambu.services/LoanAccountService';
 
 export class LoansController {
   public path = '/loans';
   public router = express.Router();
+  private loanService = new LoanAccountService();
 
-  constructor(private mambuService: MambuService) {
+  constructor() {
     this.intializeRoutes();
   }
 
@@ -15,16 +16,16 @@ export class LoansController {
     this.router.post(this.path, this.createLoan);
   }
 
-  async getLoan(req: Request, res: Response) {
+  getLoan = async (req: Request, res: Response) =>  {
     const id = req.param('id');
-    const data = await this.mambuService.loanAccounts.get(id);
+    const data = await this.loanService.get(id);
 
     res.json(data);
   }
 
-  async createLoan(req: Request, res: Response) {
+  createLoan = async (req: Request, res: Response) => {
     const { clientId, amount, interestRate } = req.body;
-    const data = await this.mambuService.loanAccounts.create(
+    const data = await this.loanService.create(
       clientId,
       amount,
       interestRate,

@@ -2,7 +2,7 @@ import express from 'express';
 
 import * as bodyParser from 'body-parser';
 import { checkToken } from './middleware/authentication';
-
+import cors from 'cors';
 import 'dotenv/config';
 
 class App {
@@ -11,6 +11,7 @@ class App {
 
   constructor(controllers) {
     this.app = express();
+    this.app.use(cors());
     this.port = process.env.BACKEND_PORT;
 
     this.initializeMiddlewares();

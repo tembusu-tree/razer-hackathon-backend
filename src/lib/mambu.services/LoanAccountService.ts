@@ -1,4 +1,5 @@
 import { MambuApiService } from './BaseService';
+import { v4 as uuidv4 } from 'uuid';
 
 export class LoanAccountService extends MambuApiService {
   async get(id: string) {
@@ -25,6 +26,14 @@ export class LoanAccountService extends MambuApiService {
       repaymentPeriodCount: '1',
       periodicPayment: '0',
       repaymentPeriodUnit: 'WEEKS',
+      "disbursementDetails": {
+        "customInformation": [
+          {
+            "value": uuidv4(),
+            "customFieldID": "IDENTIFIER_TRANSACTION_CHANNEL_I"
+          }
+        ]
+      }
     };
 
     return await this.apiPost('loans/', { loanAccount });
