@@ -5,6 +5,7 @@ import { LoansController } from './loans/loans.controller';
 
 import 'dotenv/config';
 import { MambuService } from './lib/mambu.services/mambu.service';
+import { PartnersController } from './partners/partners.controller';
 const mongoose = require('mongoose');
 
 const { MONGO_PATH } = process.env;
@@ -19,6 +20,7 @@ const app = new App([
   new HealthCheckController(),
   new ClientsController(),
   new LoansController(mambuService),
+  new PartnersController()
 ]);
 
 app.listen();
