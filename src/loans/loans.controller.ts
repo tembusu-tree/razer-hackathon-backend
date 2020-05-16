@@ -1,6 +1,7 @@
 import * as express from 'express';
 import { Request, Response } from 'express';
 import { LoanAccountService } from '../lib/mambu.services/LoanAccountService';
+import { checkToken } from '../middleware/authentication';
 
 export class LoansController {
   public path = '/loans';
@@ -12,8 +13,8 @@ export class LoansController {
   }
 
   public intializeRoutes() {
-    this.router.get(this.path + '/:id', this.getLoan);
-    this.router.post(this.path, this.createLoan);
+    this.router.get(this.path + '/:id', checkToken, this.getLoan);
+    this.router.post(this.path, checkToken, this.createLoan);
   }
 
   getLoan = async (req: Request, res: Response) =>  {

@@ -14,14 +14,12 @@ export const checkToken = (req, res, next) => {
       req.decoded = result.data;
       next();
     } else {
-      return res.send({
-        success: false,
+      return res.status(401).json({
         message: 'Invalid token',
       });
     }
   } else {
-    return res.send({
-      success: false,
+    return res.status(401).json({
       message: 'Auth token is not supplied',
     });
   }

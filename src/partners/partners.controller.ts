@@ -1,4 +1,5 @@
 import * as express from 'express';
+import { checkToken } from '../middleware/authentication';
 
 const data = {
   "online": [
@@ -98,7 +99,7 @@ export class PartnersController {
   }
 
   public intializeRoutes() {
-    this.router.get(this.path, this.getPartners);
+    this.router.get(this.path, checkToken, this.getPartners);
     // this.router.post(this.path, this.createLoan);
   }
 

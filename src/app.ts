@@ -4,6 +4,7 @@ import * as bodyParser from 'body-parser';
 import { checkToken } from './middleware/authentication';
 import cors from 'cors';
 import 'dotenv/config';
+import ClientsController from './clients/clients.controller';
 
 class App {
   public app: express.Application;
@@ -20,7 +21,6 @@ class App {
 
   private initializeMiddlewares() {
     this.app.use(bodyParser.json());
-    this.app.get('/', checkToken);
   }
 
   private initializeControllers(controllers) {

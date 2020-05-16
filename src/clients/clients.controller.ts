@@ -19,7 +19,7 @@ class ClientsController {
 
   public intializeRoutes() {
     this.router.get(this.path, this.getAllClients);
-    this.router.post(`${this.path}/create`, this.createClient);
+    this.router.post(`${this.path}`, this.createClient);
   }
 
   getAllClients = (request: Request, response: Response) => {
