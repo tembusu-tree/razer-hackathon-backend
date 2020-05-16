@@ -17,21 +17,17 @@ export class LoansController {
     this.router.post(this.path, checkToken, this.createLoan);
   }
 
-  getLoan = async (req: Request, res: Response) =>  {
+  getLoan = async (req: Request, res: Response) => {
     const id = req.param('id');
     const data = await this.loanService.get(id);
 
     res.json(data);
-  }
+  };
 
   createLoan = async (req: Request, res: Response) => {
     const { clientId, amount, interestRate } = req.body;
-    const data = await this.loanService.create(
-      clientId,
-      amount,
-      interestRate,
-    );
+    const data = await this.loanService.create(clientId, amount, interestRate);
 
     res.json(data);
-  }
+  };
 }
