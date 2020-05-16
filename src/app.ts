@@ -6,6 +6,7 @@ import cors from 'cors';
 import 'dotenv/config';
 import ClientsController from './clients/clients.controller';
 import path from 'path';
+import morgan from 'morgan';
 
 class App {
   public app: express.Application;
@@ -17,7 +18,7 @@ class App {
     if(process.env.NODE_ENV === 'development') {
       this.app.use(cors());
     }
-
+    this.app.use(morgan());
     this.port = process.env.PORT || "3000";
 
     this.initializeMiddlewares();
