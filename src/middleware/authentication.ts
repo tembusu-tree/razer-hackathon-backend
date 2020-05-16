@@ -1,7 +1,7 @@
 import { JwtService } from '../lib/jwt/jwt.service';
 
 export const checkToken = (req, res, next) => {
-  let token = req?.headers['x-access-token'] || req?.headers.authorization;
+  let token = req?.headers['x-access-token'] || req?.header('Authorization');
   if (token?.startsWith('Bearer ')) {
     // Remove Bearer from string
     token = token.slice(7, token.length);
@@ -10,7 +10,7 @@ export const checkToken = (req, res, next) => {
   if (token) {
     const jwtService = new JwtService();
     const result = jwtService.validate(token);
-    if (result.success) {
+    if (result) {
       req.decoded = result.data;
       next();
     } else {
