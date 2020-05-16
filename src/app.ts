@@ -3,9 +3,7 @@ import express from 'express';
 import * as bodyParser from 'body-parser';
 
 import 'dotenv/config';
-// import * as mongoose from 'mongoose';
-// const { MONGO_USER, MONGO_PASSWORD, MONGO_PATH } = process.env;
-// mongoose.connect(`mongodb://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`);
+
 class App {
   public app: express.Application;
   public port: string;
@@ -24,7 +22,6 @@ class App {
 
   private initializeControllers(controllers) {
     controllers.forEach((controller) => {
-      console.log('add router');
       this.app.use('/', controller.router);
     });
   }
